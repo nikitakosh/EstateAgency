@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .apartment {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .apartment-info {
+            margin-top: 20px; /* Добавлен отступ перед инфо об апартаментах */
+        }
+        .apartment-info p {
+            margin-bottom: 5px; /* Уменьшил отступ между пунктами информации */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Пользователь: <span th:text="${user.username}"></span></h2>
+    <div th:if="${user.getApartments().size() > 0}">
+        <h3>Зарезервированные апартаменты:</h3>
+        <div th:each="apartment : ${user.getApartments()}" class="apartment">
+            <div class="apartment-info">
+                <p>Адрес: <span th:text="${apartment.address}"></span></p>
+                <p>Тип: <span th:text="${apartment.type.type}"></span></p>
+                <p>Цена: <span th:text="${apartment.price}"></span></p>
+                <p>Статус: <span th:text="${apartment.status.status}"></span></p>
+            </div>
+        </div>
+    </div>
+    <div th:unless="${user.getApartments().size() > 0}">
+        <p>Нет зарезервированных апартаментов.</p>
+    </div>
+</div>
+</body>
+</html>

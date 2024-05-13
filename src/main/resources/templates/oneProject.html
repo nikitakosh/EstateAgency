@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .project-details {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .project-details h3 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        .apartment {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            position: relative; /* Добавлено для позиционирования кнопки */
+        }
+        .apartment a {
+            text-decoration: none;
+            color: #333;
+        }
+        .apartment a:hover {
+            text-decoration: underline;
+        }
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-button a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button a:hover {
+            background-color: #45a049;
+        }
+        .create-apartment-button {
+            text-align: center;
+            margin-bottom: 20px; /* Уменьшил отступ сверху */
+        }
+        .create-apartment-button a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #4caf50; /* Изменил цвет кнопки */
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .create-apartment-button a:hover {
+            background-color: #45a049; /* Изменил цвет при наведении */
+        }
+        .apartment-info {
+            margin-top: 20px; /* Добавил отступ перед инфо об апартаментах */
+        }
+        .apartment-info p {
+            margin-bottom: 5px; /* Уменьшил отступ между пунктами информации */
+        }
+        .book-button {
+            position: absolute; /* Позиционирование кнопки */
+            top: 10px; /* Расстояние от верхнего края */
+            right: 10px; /* Расстояние от правого края */
+        }
+        .book-button a {
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: #007bff; /* Цвет кнопки */
+            color: #fff;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+        .book-button a:hover {
+            background-color: #0056b3; /* Цвет кнопки при наведении */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Проект ЖК</h2>
+    <div class="create-apartment-button">
+        <a th:href="@{/api/v1/apartment(projectId=${project.id})}">Создать апартаменты</a>
+    </div>
+    <div class="project-details">
+        <h3 th:text="${project.address}"></h3>
+        <p>Статус: <span th:text="${project.status.status}"></span></p>
+        <h4>Апартаменты:</h4>
+        <div th:each="apartment : ${project.apartments}" class="apartment">
+            <div class="book-button">
+                <a th:href="@{/api/v1/apartments/{id}/buy(id=${apartment.id})}">Забронировать</a>
+            </div>
+            <div class="apartment-info">
+                <p>Адрес:
+                    <a th:href="@{/api/v1/apartments/{id}(id = ${apartment.id})}">
+                        <span th:text="${apartment.address}"></span>
+                    </a>
+                </p>
+                <p>Тип: <span th:text="${apartment.type.type}"></span></p>
+                <p>Цена: <span th:text="${apartment.price}"></span></p>
+            </div>
+            <p>Статус: <span th:text="${apartment.status.status}"></span></p>
+        </div>
+    </div>
+    <div class="back-button">
+        <a th:href="@{/api/v1/projects}">Назад</a>
+    </div>
+</div>
+</body>
+</html>

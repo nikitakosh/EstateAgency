@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Apartment Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .apartment-details {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .apartment-details h3 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-button a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .back-button a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Информация по апартаментам</h2>
+    <div class="apartment-details">
+        <h3 th:text="${apartment.address}"></h3>
+        <p th:text="${apartment.description}"></p>
+        <p>Тип: <span th:text="${apartment.type.type}"></span></p>
+        <p>Площадь: <span th:text="${apartment.area}"></span>кв. м.</p>
+        <p>Цена: $<span th:text="${apartment.price}"></span></p>
+        <p>Статус: <span th:text="${apartment.status.status}"></span></p>
+    </div>
+    <div class="back-button">
+        <a th:href="@{/api/v1/projects/{id}(id = ${apartment.project.getId()})}">Назад к проекту</a>
+    </div>
+</div>
+</body>
+</html>

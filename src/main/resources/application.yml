@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: EstateAgency
+  datasource:
+    url: jdbc:postgresql://localhost:6543/estate_agency
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+security:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET}

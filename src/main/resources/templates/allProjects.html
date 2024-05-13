@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Projects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .project {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .project:not(:last-child) {
+            border-bottom: 1px solid #ccc; /* Добавляем разделитель между проектами */
+        }
+        .project h3 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        .project p {
+            margin-bottom: 5px;
+        }
+        .create-project-button {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .create-project-button a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .create-project-button a:hover {
+            background-color: #45a049;
+        }
+        .profile-button {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-button a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #007bff; /* Цвет кнопки */
+            color: #fff;
+            border-radius: 5px;
+        }
+        .profile-button a:hover {
+            background-color: #0056b3; /* Цвет при наведении */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Все проекты ЖК</h2>
+    <div class="profile-button">
+        <a th:href="@{/api/v1/apartments/account}">Личный кабинет</a>
+    </div>
+    <div class="create-project-button" th:if="${isAdmin}">
+        <a th:href="@{/api/v1/project}">Создать проект нового ЖК</a>
+    </div>
+    <div th:each="project : ${projects}" class="project">
+        <h3>
+            <a th:href="@{/api/v1/projects/{id}(id = ${project.getId()})}">
+                <span th:text="${project.address}"></span>
+            </a>
+        </h3>
+        <p th:text="${project.description}"></p>
+        <p>Статус: <span th:text="${project.status.status}"></span></p>
+        <p>Дата завершения: <span th:text="${project.completionDate}"></span></p>
+        <p>Количество жилых апартаментов: <span th:text="${#lists.size(project.apartments)}"></span></p>
+    </div>
+</div>
+</body>
+</html>
